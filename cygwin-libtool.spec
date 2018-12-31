@@ -1,12 +1,12 @@
 # must be rebuilt with each new version of cygwin*-gcc
-%define gcc_version 7.3.0
+%define gcc_version 7.4.0
 
 %{?cygwin_package_header}
 %global debug_package %{nil}
 
 Name:      cygwin-libtool
 Version:   2.4.6
-Release:   6%{?dist}
+Release:   7%{?dist}
 Summary:   Libtool for Cygwin toolchain
 
 Group:     Development/Tools
@@ -160,8 +160,11 @@ rm -fr $RPM_BUILD_ROOT%{cygwin64_datadir}/
 
 
 %changelog
+* Mon Dec 31 2018 Yaakov Selkowitz <yselkowi@redhat.com> - 2.4.6-7
+- rebuilt for cygwin-gcc 7.4.0
+
 * Tue Jun 05 2018 Yaakov Selkowitz <yselkowi@redhat.com> - 2.4.6-6
-- Rebuilt for cygwin-gcc 7.3.0
+- rebuilt for cygwin-gcc 7.3.0
 
 * Tue Dec 05 2017 Yaakov Selkowitz <yselkowi@redhat.com> - 2.4.6-5
 - Rebuilt for cygwin-gcc 6.4.0
