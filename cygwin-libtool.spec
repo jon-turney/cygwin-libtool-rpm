@@ -17,6 +17,7 @@ Patch0:    libtool-2.4.5-pass-ldflags.patch
 
 BuildRequires: autoconf automake
 BuildRequires: help2man
+BuildRequires: make
 
 BuildRequires: cygwin32-filesystem
 BuildRequires: cygwin32-binutils
