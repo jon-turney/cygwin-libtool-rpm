@@ -6,7 +6,7 @@
 
 Name:      cygwin-libtool
 Version:   2.4.7
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   Libtool for Cygwin toolchain
 
 Group:     Development/Tools
@@ -88,6 +88,8 @@ Libtool dynamic module loader library for Cygwin x86_64 toolchain
 
 
 %build
+autoreconf -f libltdl
+autoreconf -f
 %cygwin_configure --enable-shared --disable-static
 # build not smp safe
 %cygwin_make
