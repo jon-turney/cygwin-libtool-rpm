@@ -1,19 +1,20 @@
 # must be rebuilt with each new version of cygwin*-gcc
-%define gcc_version 11.2.0
+%define gcc_version 12.4.0
 
 %{?cygwin_package_header}
 %global debug_package %{nil}
 
 Name:      cygwin-libtool
-Version:   2.4.6
-Release:   9%{?dist}
+Version:   2.4.7
+Release:   1%{?dist}
 Summary:   Libtool for Cygwin toolchain
 
 Group:     Development/Tools
 License:   GPLv2+ and LGPLv2+ and GFDL
 URL:       http://www.gnu.org/software/libtool/
 Source0:   http://ftp.gnu.org/gnu/libtool/libtool-%{version}.tar.xz
-Patch0:    libtool-2.4.5-pass-ldflags.patch
+Patch 0:    libtool-2.4.7-pass-ldflags.patch
+Patch 1:    libtool-2.4.7-clang.patch
 
 BuildRequires: autoconf automake
 BuildRequires: help2man
@@ -23,14 +24,12 @@ BuildRequires: cygwin32-filesystem
 BuildRequires: cygwin32-binutils
 BuildRequires: cygwin32-gcc = %{gcc_version}
 BuildRequires: cygwin32-gcc-c++
-BuildRequires: cygwin32-gcc-gfortran
 BuildRequires: cygwin32
 
 BuildRequires: cygwin64-filesystem
 BuildRequires: cygwin64-binutils
 BuildRequires: cygwin64-gcc = %{gcc_version}
 BuildRequires: cygwin64-gcc-c++
-BuildRequires: cygwin64-gcc-gfortran
 BuildRequires: cygwin64
 
 %description
@@ -83,7 +82,8 @@ Libtool dynamic module loader library for Cygwin x86_64 toolchain
 
 %prep
 %setup -q -n libtool-%{version}
-%patch0 -p2
+%patch 0 -p2
+%patch 1 -p2
 #./bootstrap
 
 
@@ -149,7 +149,6 @@ rm -fr $RPM_BUILD_ROOT%{cygwin64_datadir}/
 %{cygwin32_includedir}/libltdl/
 %{cygwin32_includedir}/ltdl.h
 %{cygwin32_libdir}/libltdl.dll.a
-%{cygwin32_libdir}/libltdl.la
 
 %files -n cygwin64-libltdl
 %doc libltdl/COPYING.LIB libltdl/README
@@ -157,10 +156,16 @@ rm -fr $RPM_BUILD_ROOT%{cygwin64_datadir}/
 %{cygwin64_includedir}/libltdl/
 %{cygwin64_includedir}/ltdl.h
 %{cygwin64_libdir}/libltdl.dll.a
-%{cygwin64_libdir}/libltdl.la
 
 
 %changelog
+* Thu Dec 22 2022 Corinna Vinschen <vinschen@redhat.com> - 2.4.7-1
+- version bump
+- fetch patches from native build
+- build for cygwin-gcc 11.3.0
+- drop dependency to gfortran
+- don't install libltdl.la
+
 * Thu Sep 02 2021 Yaakov Selkowitz <yselkowi@redhat.com> - 2.4.6-9
 - rebuilt for cygwin-gcc 11.2.0
 
