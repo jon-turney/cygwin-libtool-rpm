@@ -1,20 +1,20 @@
 # must be rebuilt with each new version of cygwin*-gcc
-%define gcc_version 12.4.0
+%define gcc_version 13.4.0
 
 %{?cygwin_package_header}
 %global debug_package %{nil}
 
 Name:      cygwin-libtool
-Version:   2.4.7
-Release:   2%{?dist}
+Version:   2.5.4
+Release:   1%{?dist}
 Summary:   Libtool for Cygwin toolchain
 
 Group:     Development/Tools
 License:   GPLv2+ and LGPLv2+ and GFDL
 URL:       http://www.gnu.org/software/libtool/
-Source0:   http://ftp.gnu.org/gnu/libtool/libtool-%{version}.tar.xz
-Patch 0:    libtool-2.4.7-pass-ldflags.patch
-Patch 1:    libtool-2.4.7-clang.patch
+Source0:   http://ftp.gnu.org/gnu/libtool/libtool-%{version}.tar.gz
+Patch 0:    libtool-2.5.4-pass-ldflags.patch
+Patch 1:    libtool-2.5.4-clang.patch
 
 BuildRequires: autoconf automake
 BuildRequires: help2man

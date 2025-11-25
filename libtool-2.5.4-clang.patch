@@ -1,6 +1,6 @@
---- origsrc/libtool-2.4.7/build-aux/ltmain.in
-+++ src/libtool-2.4.7/build-aux/ltmain.in
-@@ -5901,8 +5901,15 @@ func_mode_link ()
+--- origsrc/libtool-2.5.4/build-aux/ltmain.in
++++ src/libtool-2.5.4/build-aux/ltmain.in
+@@ -5940,8 +5940,15 @@ func_mode_link ()
  	  fi
  	  case $linkmode in
  	  lib)
@@ -18,9 +18,10 @@
  	    case " $dlpreconveniencelibs " in
  	    *" $deplib "*) ;;
  	    *)
---- origsrc/libtool-2.4.7/m4/libtool.m4
-+++ src/libtool-2.4.7/m4/libtool.m4
-@@ -7551,10 +7551,11 @@ if AC_TRY_EVAL(ac_compile); then
+
+--- origsrc/libtool-2.5.4/m4/libtool.m4
++++ src/libtool-2.5.4/m4/libtool.m4
+@@ -7598,10 +7598,11 @@
    # the conftest object file.
    pre_test_object_deps_done=no
  
@@ -30,6 +31,7 @@
  
 -    -L* | -R* | -l*)
 +    -L* | -R* | -l* | *.${libext} | *${std_shrext})
-        # Some compilers place space between "-{L,R}" and the path.
+        # Some compilers place space between "-{L,R,l}" and the path.
         # Remove the space.
-        if test x-L = "$p" ||
+        if test x-L = x"$p" ||
+

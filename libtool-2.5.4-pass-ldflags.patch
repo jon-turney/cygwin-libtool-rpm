@@ -1,0 +1,13 @@
+--- origsrc/libtool-2.5.4/build-aux/ltmain.in
++++ src/libtool-2.5.4/build-aux/ltmain.in
+@@ -5435,6 +5435,9 @@
+       -t[45]*|-txscale*|-p|-pg|--coverage|-fprofile-*|-F*|@*|-tp=*|--sysroot=*| \
+       -O*|-g*|-flto*|-fwhopr*|-fuse-linker-plugin|-fstack-protector*|-no-canonical-prefixes| \
+       -stdlib=*|-rtlib=*|--unwindlib=*| \
++      -fopenacc|-fopenmp|-ftree-parallelize-loops=*|-fcilkplus|-fgnu-tm| \
++      -ffast-math|-funsafe-math-optimizations|-fvtable-verify*| \
++      -shared-libgcc|-static-libgcc|-static-libgfortran|-static-libstdc++| \
+       -specs=*|-fsanitize=*|-fno-sanitize*|-shared-libsan|-static-libsan| \
+       -ffile-prefix-map=*|-fdebug-prefix-map=*|-fmacro-prefix-map=*|-fprofile-prefix-map=*| \
+       -fdiagnostics-color*|-frecord-gcc-switches| \
+
