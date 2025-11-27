@@ -6,7 +6,7 @@
 
 Name:      cygwin-libtool
 Version:   2.5.4
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   Libtool for Cygwin toolchain
 
 Group:     Development/Tools
@@ -130,7 +130,9 @@ sed -i -e "s|%{cygwin32_datadir}/libtool|%{_datadir}/%{name}|" \
 # remove duplicates
 rm -f  $RPM_BUILD_ROOT%{cygwin64_bindir}/libtoolize
 rm -fr $RPM_BUILD_ROOT%{cygwin64_datadir}/
-
+# eventually remove .la files if generated
+rm -f  $RPM_BUILD_ROOT%{cygwin32_libdir}/libltdl.la
+rm -f  $RPM_BUILD_ROOT%{cygwin64_libdir}/libltdl.la
 
 %files base
 %doc AUTHORS COPYING NEWS README THANKS TODO ChangeLog*
