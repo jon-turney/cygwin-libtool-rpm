@@ -5,16 +5,16 @@
 %global debug_package %{nil}
 
 Name:      cygwin-libtool
-Version:   2.5.4
-Release:   2%{?dist}
+Version:   2.6.2
+Release:   1%{?dist}
 Summary:   Libtool for Cygwin toolchain
 
 Group:     Development/Tools
-License:   GPLv2+ and LGPLv2+ and GFDL
-URL:       http://www.gnu.org/software/libtool/
-Source0:   http://ftp.gnu.org/gnu/libtool/libtool-%{version}.tar.gz
-Patch 0:    libtool-2.5.4-pass-ldflags.patch
-Patch 1:    libtool-2.5.4-clang.patch
+License:   GPL-2.0-or-later AND LGPL-2.0-or-later WITH Libtool-exception
+URL:       https://www.gnu.org/software/libtool/
+Source0:   https://ftp.gnu.org/gnu/libtool/libtool-%{version}.tar.gz
+Patch0:    libtool-2.6.2-pass-ldflags.patch
+Patch1:    libtool-2.6.2-clang.patch
 
 BuildRequires: autoconf automake
 BuildRequires: help2man
@@ -82,8 +82,8 @@ Libtool dynamic module loader library for Cygwin x86_64 toolchain
 
 %prep
 %setup -q -n libtool-%{version}
-%patch 0 -p2
-%patch 1 -p2
+%patch -P0 -p2
+%patch -P1 -p2
 #./bootstrap
 
 
@@ -142,10 +142,12 @@ rm -f  $RPM_BUILD_ROOT%{cygwin64_libdir}/libltdl.la
 %files -n cygwin32-libtool
 %{_bindir}/%{cygwin32_target}-libtool
 %{cygwin32_bindir}/libtool
+%{cygwin32_bindir}/libtool-next-version
 
 %files -n cygwin64-libtool
 %{_bindir}/%{cygwin64_target}-libtool
 %{cygwin64_bindir}/libtool
+%{cygwin64_bindir}/libtool-next-version
 
 %files -n cygwin32-libltdl
 %doc libltdl/COPYING.LIB libltdl/README
@@ -163,6 +165,9 @@ rm -f  $RPM_BUILD_ROOT%{cygwin64_libdir}/libltdl.la
 
 
 %changelog
+* Sat Sep 19 2026 Jon Turney <jon.turney@dronecode.org.uk> - 2.6.2-1
+- new version
+
 * Thu Dec 22 2022 Corinna Vinschen <vinschen@redhat.com> - 2.4.7-1
 - version bump
 - fetch patches from native build
