@@ -6,7 +6,7 @@
 
 Name:      cygwin-libtool
 Version:   2.6.2
-Release:   2%{?dist}
+Release:   3%{?dist}
 Summary:   Libtool for Cygwin toolchain
 
 Group:     Development/Tools
@@ -32,6 +32,12 @@ BuildRequires: cygwin64-gcc = %{gcc_version}
 BuildRequires: cygwin64-gcc-c++
 BuildRequires: cygwin64
 
+BuildRequires: cygwin-aarch64-filesystem
+BuildRequires: cygwin-aarch64-binutils
+BuildRequires: cygwin-aarch64-gcc = %{gcc_version}
+BuildRequires: cygwin-aarch64-gcc-c++
+BuildRequires: cygwin-aarch64
+
 %description
 Libtool for Cygwin toolchain
 
@@ -44,7 +50,7 @@ Requires:  autoconf automake sed
 Libtoolize for Cygwin toolchains
 
 %package -n cygwin32-libtool
-Summary:   Libtool for Cygwin32 toolchain
+Summary:   Libtool for Cygwin i686 toolchain
 Requires:  cygwin32-gcc = %{gcc_version}
 Requires:  cygwin32-libltdl = %{version}-%{release}
 Requires:  %{name}-base = %{version}-%{release}
@@ -53,7 +59,7 @@ Requires:  %{name}-base = %{version}-%{release}
 Libtool scripts for Cygwin i686 toolchain
 
 %package -n cygwin64-libtool
-Summary:   Libtool for Cygwin64 toolchain
+Summary:   Libtool for Cygwin x64_64 toolchain
 Requires:  cygwin64-gcc = %{gcc_version}
 Requires:  cygwin64-libltdl = %{version}-%{release}
 Requires:  %{name}-base = %{version}-%{release}
@@ -61,8 +67,17 @@ Requires:  %{name}-base = %{version}-%{release}
 %description -n cygwin64-libtool
 Libtool scripts for Cygwin x86_64 toolchain
 
+%package -n cygwin-aarch64-libtool
+Summary:   Libtool for Cygwin aarch64 toolchain
+Requires:  cygwin-aarch64-gcc = %{gcc_version}
+Requires:  cygwin-aarch64-libltdl = %{version}-%{release}
+Requires:  %{name}-base = %{version}-%{release}
+
+%description -n cygwin-aarch64-libtool
+Libtool scripts for Cygwin aarch64 toolchain
+
 %package -n cygwin32-libltdl
-Summary:   Libtool Dynamic Module Loader library for Cygwin32 toolchain
+Summary:   Libtool Dynamic Module Loader library for Cygwin i686 toolchain
 Group:     Development/Libraries
 License:   LGPLv2+
 BuildArch: noarch
@@ -71,13 +86,22 @@ BuildArch: noarch
 Libtool dynamic module loader library for Cygwin i686 toolchain
 
 %package -n cygwin64-libltdl
-Summary:   Libtool Dynamic Module Loader library for Cygwin64 toolchain
+Summary:   Libtool Dynamic Module Loader library for Cygwin x86_64 toolchain
 Group:     Development/Libraries
 License:   LGPLv2+
 BuildArch: noarch
 
 %description -n cygwin64-libltdl
 Libtool dynamic module loader library for Cygwin x86_64 toolchain
+
+%package -n cygwin-aarch64-libltdl
+Summary:   Libtool Dynamic Module Loader library for Cygwin aarch64 toolchain
+Group:     Development/Libraries
+License:   LGPLv2+
+BuildArch: noarch
+
+%description -n cygwin-aarch64-libltdl
+Libtool dynamic module loader library for Cygwin aarch64 toolchain
 
 
 %prep
@@ -109,11 +133,17 @@ rm -fr $RPM_BUILD_ROOT%{cygwin64_docdir}/
 rm -fr $RPM_BUILD_ROOT%{cygwin64_infodir}/
 rm -fr $RPM_BUILD_ROOT%{cygwin64_mandir}/
 
+rm -fr $RPM_BUILD_ROOT%{cygwin_aarch64_docdir}/
+rm -fr $RPM_BUILD_ROOT%{cygwin_aarch64_infodir}/
+rm -fr $RPM_BUILD_ROOT%{cygwin_aarch64_mandir}/
+
 # Some packages (e.g. ncurses) build with the installed libtool
 install -D -m0755 $RPM_BUILD_ROOT%{cygwin32_bindir}/libtool \
   $RPM_BUILD_ROOT%{_bindir}/%{cygwin32_target}-libtool
 install -D -m0755 $RPM_BUILD_ROOT%{cygwin64_bindir}/libtool \
   $RPM_BUILD_ROOT%{_bindir}/%{cygwin64_target}-libtool
+install -D -m0755 $RPM_BUILD_ROOT%{cygwin_aarch64_bindir}/libtool \
+  $RPM_BUILD_ROOT%{_bindir}/%{cygwin_aarch64_target}-libtool
 
 # libtoolize is run only once during %%prep, not per-arch
 install -d -m0755 $RPM_BUILD_ROOT%{_datadir}
@@ -130,9 +160,12 @@ sed -i -e "s|%{cygwin32_datadir}/libtool|%{_datadir}/%{name}|" \
 # remove duplicates
 rm -f  $RPM_BUILD_ROOT%{cygwin64_bindir}/libtoolize
 rm -fr $RPM_BUILD_ROOT%{cygwin64_datadir}/
+rm -f  $RPM_BUILD_ROOT%{cygwin_aarch64_bindir}/libtoolize
+rm -fr $RPM_BUILD_ROOT%{cygwin_aarch64_datadir}/
 # eventually remove .la files if generated
 rm -f  $RPM_BUILD_ROOT%{cygwin32_libdir}/libltdl.la
 rm -f  $RPM_BUILD_ROOT%{cygwin64_libdir}/libltdl.la
+rm -f  $RPM_BUILD_ROOT%{cygwin_aarch64_libdir}/libltdl.la
 
 %files base
 %doc AUTHORS COPYING NEWS README THANKS TODO ChangeLog*
@@ -149,6 +182,11 @@ rm -f  $RPM_BUILD_ROOT%{cygwin64_libdir}/libltdl.la
 %{cygwin64_bindir}/libtool
 %{cygwin64_bindir}/libtool-next-version
 
+%files -n cygwin-aarch64-libtool
+%{_bindir}/%{cygwin_aarch64_target}-libtool
+%{cygwin_aarch64_bindir}/libtool
+%{cygwin_aarch64_bindir}/libtool-next-version
+
 %files -n cygwin32-libltdl
 %doc libltdl/COPYING.LIB libltdl/README
 %{cygwin32_bindir}/cygltdl-7.dll
@@ -163,8 +201,18 @@ rm -f  $RPM_BUILD_ROOT%{cygwin64_libdir}/libltdl.la
 %{cygwin64_includedir}/ltdl.h
 %{cygwin64_libdir}/libltdl.dll.a
 
+%files -n cygwin-aarch64-libltdl
+%doc libltdl/COPYING.LIB libltdl/README
+%{cygwin_aarch64_bindir}/cygltdl-7.dll
+%{cygwin_aarch64_includedir}/libltdl/
+%{cygwin_aarch64_includedir}/ltdl.h
+%{cygwin_aarch64_libdir}/libltdl.dll.a
+
 
 %changelog
+* Sat Sep 19 2026 Jon Turney <jon.turney@dronecode.org.uk> - 2.6.2-3
+- add aarch64
+
 * Sat Sep 19 2026 Jon Turney <jon.turney@dronecode.org.uk> - 2.6.2-2
 - rebuild for cygwin-gcc 16.1.0
 
