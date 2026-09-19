@@ -1,12 +1,12 @@
 # must be rebuilt with each new version of cygwin*-gcc
-%define gcc_version 13.4.0
+%define gcc_version 16.1.0
 
 %{?cygwin_package_header}
 %global debug_package %{nil}
 
 Name:      cygwin-libtool
 Version:   2.6.2
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   Libtool for Cygwin toolchain
 
 Group:     Development/Tools
@@ -165,6 +165,9 @@ rm -f  $RPM_BUILD_ROOT%{cygwin64_libdir}/libltdl.la
 
 
 %changelog
+* Sat Sep 19 2026 Jon Turney <jon.turney@dronecode.org.uk> - 2.6.2-2
+- rebuild for cygwin-gcc 16.1.0
+
 * Sat Sep 19 2026 Jon Turney <jon.turney@dronecode.org.uk> - 2.6.2-1
 - new version
 
